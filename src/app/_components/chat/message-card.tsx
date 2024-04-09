@@ -5,6 +5,7 @@ import {Avatar, Badge, Button, Link, Tooltip} from '@nextui-org/react';
 import {useClipboard} from '@nextui-org/use-clipboard';
 import {Icon} from '@iconify/react';
 import { cn } from '@/app/_utils/cn';
+import { useSession } from 'next-auth/react';
 
 type MessageCardProps = React.HTMLAttributes<HTMLDivElement> & {
   avatar?: string;
@@ -41,6 +42,7 @@ const MessageCard = React.forwardRef<HTMLDivElement, MessageCardProps>(
   ) => {
     const [feedback, setFeedback] = React.useState<'like' | 'dislike'>();
     const [attemptFeedback, setAttemptFeedback] = React.useState<'like' | 'dislike' | 'same'>();
+    const { data } = useSession();
 
     const messageRef = React.useRef<HTMLDivElement>(null);
 
@@ -114,7 +116,7 @@ const MessageCard = React.forwardRef<HTMLDivElement, MessageCardProps>(
             placement='bottom-right'
             shape='circle'
           >
-            <Avatar src={avatar} />
+            <Avatar src={avatar} name={data?.user?.name ?? undefined} />
           </Badge>
         </div>
         <div className='flex w-full flex-col gap-4'>

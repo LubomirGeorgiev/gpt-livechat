@@ -17,7 +17,6 @@ const PromptInput = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           label: cn('hidden', classNames?.label),
           input: cn('py-0', classNames?.input),
         }}
-        minRows={1}
         placeholder='Enter a prompt here'
         radius='lg'
         variant='bordered'

@@ -1,42 +1,32 @@
-import React from 'react';
-
-import {userMessages, assistantMessages} from './messages';
+import React, { type FunctionComponent } from 'react';
 
 import MessageCard from './message-card';
+import { useSession } from 'next-auth/react';
+import type { Message } from 'ai/react';
 
-export default function Conversation() {
-  const messages = [
-    {
-      role: 'user',
-      message: userMessages[0],
-    },
-    {
-      role: 'assistant',
-      message: assistantMessages[0],
-    },
-    {
-      role: 'user',
-      message: userMessages[1],
-    },
-    {
-      role: 'assistant',
-      message: assistantMessages[1],
-    },
-  ];
+type Props = {
+  messages: Pick<Message, 'id' | 'content' | 'role'>[]
+}
+
+const Conversation: FunctionComponent<Props> = ({
+  messages
+}) => {
+  const { data } = useSession();
+  const avatar = data?.user?.image ?? undefined;
 
   return (
     <div className='flex flex-col gap-4 px-1'>
-      {messages.map(({role, message}, index) => (
+      {messages.map(({id, role, content}, index) => (
         <MessageCard
-          key={index}
-          attempts={index === 1 ? 2 : 1}
+          key={id || index}
+          // attempts={index === 1 ? 2 : 1}
           avatar={
             role === 'assistant'
-              ? 'https://i.pravatar.cc/50'
-              : 'https://i.pravatar.cc/51'
+              ? 'https://img6.arthub.ai/64eca2b6-b8a0.webp'
+              : avatar
           }
           currentAttempt={index === 1 ? 2 : 1}
-          message={message}
+          message={content}
           messageClassName={role === 'user' ? 'bg-content3 text-content3-foreground' : ''}
           showFeedback={role === 'assistant'}
         />
@@ -44,3 +34,5 @@ export default function Conversation() {
     </div>
   );
 }
+
+export default Conversation;

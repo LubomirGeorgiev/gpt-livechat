@@ -1,37 +1,44 @@
 'use client';
 
-import React from 'react';
-import {Button, Tooltip, ScrollShadow} from '@nextui-org/react';
+import React, { type ComponentProps, forwardRef } from 'react';
+import {Button, Tooltip} from '@nextui-org/react';
 import {Icon} from '@iconify/react';
 
 import PromptInput from './prompt-input';
 import { cn } from '@/app/_utils/cn';
 
-export default function PromptInputWithBottomActions() {
-  const ideas = [
-    {
-      title: 'Create a blog post about NextUI',
-      description: 'explain it in simple terms',
-    },
-    {
-      title: 'Give me 10 ideas for my next blog post',
-      description: 'include only the best ideas',
-    },
-    {
-      title: 'Compare NextUI with other UI libraries',
-      description: 'be as objective as possible',
-    },
-    {
-      title: 'Write a text message to my friend',
-      description: 'be polite and friendly',
-    },
-  ];
+type Props = {
+  textAreaProps: ComponentProps<typeof PromptInput>,
+} & ComponentProps<'form'>;
 
-  const [prompt, setPrompt] = React.useState<string>('');
+const PromptInputWithBottomActions = forwardRef<HTMLFormElement, Props>(({
+  textAreaProps,
+  ...props
+}, ref) => {
+  // const ideas = [
+  //   {
+  //     title: 'Create a blog post about NextUI',
+  //     description: 'explain it in simple terms',
+  //   },
+  //   {
+  //     title: 'Give me 10 ideas for my next blog post',
+  //     description: 'include only the best ideas',
+  //   },
+  //   {
+  //     title: 'Compare NextUI with other UI libraries',
+  //     description: 'be as objective as possible',
+  //   },
+  //   {
+  //     title: 'Write a text message to my friend',
+  //     description: 'be polite and friendly',
+  //   },
+  // ];
+
+  const value = textAreaProps.value as string;
 
   return (
     <div className='flex w-full flex-col gap-4'>
-      <ScrollShadow hideScrollBar className='flex flex-nowrap gap-2' orientation='horizontal'>
+      {/* <ScrollShadow hideScrollBar className='flex flex-nowrap gap-2' orientation='horizontal'>
         <div className='flex gap-2'>
           {ideas.map(({title, description}, index) => (
             <Button key={index} className='flex h-14 flex-col items-start gap-0' variant='flat'>
@@ -40,29 +47,36 @@ export default function PromptInputWithBottomActions() {
             </Button>
           ))}
         </div>
-      </ScrollShadow>
-      <form className='flex w-full flex-col items-start rounded-medium bg-default-100 transition-colors hover:bg-default-200/70'>
+      </ScrollShadow> */}
+      <form
+        className={cn(props.className, 'flex w-full flex-col items-start rounded-medium bg-default-100 transition-colors hover:bg-default-200/70')}
+        {...props}
+        ref={ref}
+      >
         <PromptInput
           classNames={{
             inputWrapper: '!bg-transparent shadow-none',
             innerWrapper: 'relative',
             input: 'pt-1 pl-2 pb-6 !pr-10 text-medium',
           }}
+          maxRows={3}
+          minRows={1}
           endContent={
             <div className='flex items-end gap-2'>
               <Tooltip showArrow content='Send message'>
                 <Button
                   isIconOnly
-                  color={!prompt ? 'default' : 'primary'}
-                  isDisabled={!prompt}
+                  color={!value ? 'default' : 'primary'}
+                  isDisabled={!value}
                   radius='lg'
                   size='sm'
                   variant='solid'
+                  type='submit'
                 >
                   <Icon
                     className={cn(
                       '[&>path]:stroke-[2px]',
-                      !prompt ? 'text-default-600' : 'text-primary-foreground',
+                      !value ? 'text-default-600' : 'text-primary-foreground',
                     )}
                     icon='solar:arrow-up-linear'
                     width={20}
@@ -72,9 +86,8 @@ export default function PromptInputWithBottomActions() {
             </div>
           }
           radius='lg'
-          value={prompt}
           variant='flat'
-          onValueChange={setPrompt}
+          {...textAreaProps}
         />
         <div className='flex w-full items-center justify-between  gap-2 overflow-scroll px-4 pb-4'>
           <div className='flex w-full gap-1 md:gap-3'>
@@ -106,9 +119,13 @@ export default function PromptInputWithBottomActions() {
               Templates
             </Button> */}
           </div>
-          <p className='py-1 text-tiny text-default-400'>{prompt.length}/2000</p>
+          <p className='py-1 text-tiny text-default-400'>{value.length}/2000</p>
         </div>
       </form>
     </div>
   );
-}
+})
+
+PromptInputWithBottomActions.displayName = 'PromptInputWithBottomActions';
+
+export default PromptInputWithBottomActions;

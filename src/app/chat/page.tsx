@@ -1,9 +1,8 @@
 'use client'
 
-import {ScrollShadow, Tab, Tabs} from '@nextui-org/react';
+import { Tab, Tabs} from '@nextui-org/react';
 import SidebarContainer from '../_components/chat/sidebar-with-gradient-background';
-import Conversation from '../_components/chat/conversation';
-import PromptInputWithBottomActions from '../_components/chat/prompt-input-with-bottom-actions';
+import ChatPanel from '../_components/chat/chat-panel';
 
 const ChatPage = () => {
   return (
@@ -18,14 +17,7 @@ const ChatPage = () => {
         }
         title='Crypto Exchange GPT'
       >
-        <div className='relative flex h-full flex-col'>
-          <ScrollShadow className='flex h-full max-h-[60vh] flex-col gap-6 overflow-y-auto pb-8'>
-            <Conversation />
-          </ScrollShadow>
-          <div className='mt-auto flex max-w-full flex-col gap-2'>
-            <PromptInputWithBottomActions />
-          </div>
-        </div>
+        <ChatPanel />
       </SidebarContainer>
     </div>
   );

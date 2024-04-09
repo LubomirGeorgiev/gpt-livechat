@@ -94,12 +94,11 @@ export default function SidebarContainer({
         <Button
           fullWidth
           className='justify-start text-default-600 data-[hover=true]:text-black'
-          // TODO Make sure to update the href with the correct link
           href='https://github.com/LubomirGeorgiev/gpt-livechat'
           as={Link}
           target='_blank'
           startContent={
-            <Icon className='text-default-600' icon='solar:info-circle-line-duotone' width={24} />
+            <Icon className='text-default-600' icon='akar-icons:github-fill' width={24} />
           }
           variant='light'
         >
@@ -129,7 +128,7 @@ export default function SidebarContainer({
         {content}
       </SidebarDrawer>
       <div className='flex w-full h-full flex-col gap-y-4 p-4 sm:max-w-[calc(100%_-_288px)]'>
-        <header className='flex items-center justify-between gap-2 overflow-x-scroll rounded-medium border-small border-divider p-2'>
+        <header className='flex items-center justify-between gap-2 overflow-x-scroll rounded-medium border-small border-divider py-2 px-4'>
           <div className='flex max-w-full items-center gap-2'>
             <Button
               isIconOnly

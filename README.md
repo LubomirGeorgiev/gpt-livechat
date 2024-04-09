@@ -9,8 +9,10 @@
     - **The App has Email and Public Profile access permissions**
     - **The Callback URL is set to `http://localhost:3000/api/auth/callback/github`**
 5. Update `GITHUB_ID` and `GITHUB_SECRET` in `.env` with the values that you got from the previous step.
-6. `pnpm run db:push`
-7. `pnpm run dev`
+6. Update `OPENAI_API_KEY` in `.env`
+7. `pnpm run db:push`
+8. `pnpm run dev`
+9. Open `http://localhost:3000` in your browser
 
 ## Tech Stack
 
