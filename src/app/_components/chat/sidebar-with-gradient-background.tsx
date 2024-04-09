@@ -36,9 +36,9 @@ export default function SidebarContainer({
 }) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const { data, status } = useSession();
-  const userName = data?.user?.name;
-  const userEmail = data?.user?.email;
-  const userImage = data?.user?.image;
+  const userName = data?.user?.name ?? undefined;
+  const userEmail = data?.user?.email ?? undefined;
+  const userImage = data?.user?.image ?? undefined;
 
   // eslint-disable-next-line @typescript-eslint/unbound-method
   const { push } = useRouter();
