@@ -6,7 +6,8 @@ const config = {
   },
   'plugins': [
     '@typescript-eslint',
-    'drizzle'
+    'drizzle',
+    'canonical'
   ],
   'extends': [
     'next/core-web-vitals',
@@ -14,6 +15,8 @@ const config = {
     'plugin:@typescript-eslint/stylistic-type-checked'
   ],
   'rules': {
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'canonical/no-unused-exports': ['error', { 'tsConfigPath': './tsconfig.json' }],
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/array-type': 'off',
     '@typescript-eslint/quotes': ['error', 'single'],
@@ -27,10 +30,11 @@ const config = {
       }
     ],
     '@typescript-eslint/no-unused-vars': [
-      'warn',
+      'error',
       {
-        'argsIgnorePattern': '^_'
-      }
+        'argsIgnorePattern': '^__ignore',
+        'varsIgnorePattern': '^__ignore'
+      },
     ],
     '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/no-misused-promises': [
