@@ -5,7 +5,8 @@
 1. `pnpm install`
 2. `docker compose up -d`
 3. Copy `.env.example` as `.env`
-4. `pnpm dev`
+4. `pnpm run db:push`
+5. `pnpm run dev`
 
 ## Tech Stack
 
