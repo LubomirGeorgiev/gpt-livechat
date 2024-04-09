@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import {Avatar, Button, ScrollShadow, Spacer, useDisclosure, Link, Tabs, Tab} from '@nextui-org/react';
+import {Avatar, Button, ScrollShadow, Spacer, useDisclosure, Link} from '@nextui-org/react';
 import {Icon} from '@iconify/react';
 
 import {Logo} from './logo';
