@@ -5,8 +5,10 @@ import {
   pgTableCreator,
   primaryKey,
   text,
+  serial,
   timestamp,
   varchar,
+  jsonb,
 } from 'drizzle-orm/pg-core';
 import { type AdapterAccount } from 'next-auth/adapters';
 
@@ -94,3 +96,16 @@ export const verificationTokens = createTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
+
+export const chatHistory = createTable('chatHistory', {
+  id: serial('id').primaryKey(),
+  userId: varchar('userId', { length: 255 }).notNull(),
+  conversation: jsonb('conversation').notNull(),
+  sessionStartedDate: timestamp('sessionStartedDate', { mode: 'date' }).notNull(),
+  updatedAt: timestamp('updatedAt', { mode: 'date', precision: 3 }).$onUpdate(() => new Date()),
+  createdAt: timestamp('createdAt').defaultNow(),
+})
+
+export const chatHistoryRelations = relations(chatHistory, ({ one }) => ({
+  user: one(users, { fields: [chatHistory.userId], references: [users.id] }),
+}));

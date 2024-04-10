@@ -1,13 +1,32 @@
 'use client'
 
+import { type FunctionComponent } from 'react'
+
 import Conversation from '@/app/_components/chat/conversation';
 import PromptInputWithBottomActions from '@/app/_components/chat/prompt-input-with-bottom-actions';
 import { ScrollShadow } from '@nextui-org/react';
 import { useChat } from 'ai/react';
-import { type ComponentProps, useCallback, useRef, type FormEvent } from 'react';
+import { type ComponentProps, useCallback, useRef, type FormEvent, useEffect } from 'react';
 
-const ChatPanel = () => {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
+import type { api } from '@/trpc/react';
+
+type Props = {
+  refetchChatHistory: ReturnType<typeof api.chat.myChats.useQuery>['refetch'];
+  sessionStartedDate: Date;
+};
+
+const ChatPanel: FunctionComponent<Props> = ({
+  refetchChatHistory,
+  sessionStartedDate,
+}) => {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    onFinish: () => {
+      void refetchChatHistory()
+    },
+    body: {
+      sessionStartedDate
+    }
+  });
 
   const formRef = useRef<HTMLFormElement>(null);
 

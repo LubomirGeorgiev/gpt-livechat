@@ -5,12 +5,20 @@ import {Avatar, Button, ScrollShadow, Spacer, useDisclosure, Link} from '@nextui
 import {Icon} from '@iconify/react';
 
 import {Logo} from './logo';
-import {sectionItems} from './sidebar-items';
 import SidebarDrawer from './sidebar-drawer';
 
 import Sidebar from './sidebar';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import type { MessageType } from '@/app/_utils/types';
+
+type ChatHistory = {
+  id: number;
+  userId: string;
+  conversation: unknown;
+  updatedAt: Date | null;
+  createdAt: Date | null;
+}[] | undefined
 
 /**
  * 💡 TIP: You can use the usePathname hook from Next.js App Router to get the current pathname
@@ -29,10 +37,12 @@ export default function SidebarContainer({
   children,
   header,
   title = 'Overview',
+  chatHistory,
 }: {
   children?: React.ReactNode;
   header?: React.ReactNode;
   title?: string;
+  chatHistory?: ChatHistory;
 }) {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const { data, status } = useSession();
@@ -80,7 +90,29 @@ export default function SidebarContainer({
             base: 'data-[selected=true]:bg-default-400/20 data-[hover=true]:bg-default-400/10',
             title: 'text-default-600 group-data-[selected=true]:text-foreground',
           }}
-          items={sectionItems}
+          items={[
+            {
+              key: 'history',
+              title: 'Chat History',
+              ...(Array.isArray(chatHistory) && chatHistory?.length ? {
+                items: (chatHistory).map((chat, index) => {
+                  const title = ((chat?.conversation as MessageType[])?.[0]?.content as string);
+
+                  return {
+                    key: `chat-${chat.id}`,
+                    title: title ? `${index + 1}: ${title.substring(0, 40) }`: `Chat ${index + 1}`,
+                  }
+                }),
+              } : {
+                items: [
+                  {
+                    key: 'no-history',
+                    title: 'Start a new conversation',
+                  }
+                ]
+              })
+            }
+          ]}
           sectionClasses={{
             heading: 'text-default-600 font-medium',
           }}

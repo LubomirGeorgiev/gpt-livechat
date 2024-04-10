@@ -1,5 +1,7 @@
 # GPT-LIVECHAT
 
+Live Demo: https://gpt-livechat.vercel.app/
+
 # Installation guide
 
 1. `pnpm install`

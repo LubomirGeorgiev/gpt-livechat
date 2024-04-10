@@ -66,7 +66,7 @@ const Sidebar = React.forwardRef<HTMLElement, SidebarProps>(
       group: cn(sectionClassesProp?.group, {
         'flex flex-col gap-1': isCompact,
       }),
-      heading: cn(sectionClassesProp?.heading, {
+      heading: cn(sectionClassesProp?.heading, 'font-extrabold text-lg', {
         hidden: isCompact,
       }),
     };
