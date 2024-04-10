@@ -82,7 +82,7 @@ export default function SidebarContainer({
         </div>
       </div>
 
-      <ScrollShadow className='-mr-6 h-full max-h-full py-6 pr-6'>
+      <ScrollShadow className='-mr-6 h-full max-h-full py-6 pr-6' hideScrollBar>
         <Sidebar
           defaultSelectedKey='home'
           iconClassName='text-default-600 group-data-[selected=true]:text-foreground'
@@ -160,7 +160,7 @@ export default function SidebarContainer({
         {content}
       </SidebarDrawer>
       <div className='flex w-full h-full flex-col gap-y-4 p-4 sm:max-w-[calc(100%_-_288px)]'>
-        <header className='flex items-center justify-between gap-2 overflow-x-scroll rounded-medium border-small border-divider py-2 px-4'>
+        <header className='flex items-center justify-between gap-2 overflow-hidden rounded-medium border-small border-divider py-2 px-4'>
           <div className='flex max-w-full items-center gap-2'>
             <Button
               isIconOnly
