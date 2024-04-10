@@ -16,7 +16,7 @@ enum SidebarItemType {
   Nest = 'nest',
 }
 
-export type SidebarItem = {
+type SidebarItem = {
   key: string;
   title: string;
   icon?: string;

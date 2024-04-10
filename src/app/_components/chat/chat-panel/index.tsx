@@ -6,7 +6,7 @@ import Conversation from '@/app/_components/chat/conversation';
 import PromptInputWithBottomActions from '@/app/_components/chat/prompt-input-with-bottom-actions';
 import { ScrollShadow } from '@nextui-org/react';
 import { useChat } from 'ai/react';
-import { type ComponentProps, useCallback, useRef, type FormEvent, useEffect } from 'react';
+import { type ComponentProps, useCallback, useRef, type FormEvent } from 'react';
 
 import type { api } from '@/trpc/react';
 
